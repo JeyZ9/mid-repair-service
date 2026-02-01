@@ -27,6 +27,7 @@ export default function AdminDashboard(){
   const [newServiceImage, setNewServiceImage] = useState(null);
   const [editId, setEditId] = useState(null);
   const [editService, setEditService] = useState({ name: '', price: '', description: '' });
+  const [editServiceImage, setEditServiceImage] = useState(null);
   const [showRole, setShowRole] = useState(false);
   const [roleUserId, setRoleUserId] = useState('');
   const [role, setRole] = useState('user');
@@ -123,10 +124,24 @@ export default function AdminDashboard(){
     }
   }
 
-  function handleEdit(){
-    updateService(editId, editService)
-      .then(()=>{ setEditId(null); setEditService({ name: '', price: '', description: '' }); load(); Swal.fire('Updated!','Service has been updated.','success'); })
-      .catch(err=>Swal.fire('Error', err.response?.data?.message || err.message || 'Update failed', 'error'));
+  async function handleEdit() {
+    try {
+      const formData = new FormData();
+      formData.append('name', editService.name);
+      formData.append('price', editService.price);
+      formData.append('description', editService.description);
+      if (editServiceImage) {
+        formData.append('image', editServiceImage);
+      }
+      await updateService(editId, formData);
+      setEditId(null);
+      setEditService({ name: '', price: '', description: '' });
+      setEditServiceImage(null);
+      load();
+      Swal.fire('Updated!', 'Service has been updated.', 'success');
+    } catch (err) {
+      Swal.fire('Error', err.response?.data?.message || err.message || 'Update failed', 'error');
+    }
   }
 
   function handleRoleChange(){
