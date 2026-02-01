@@ -1,20 +1,25 @@
 import { useEffect, useState } from 'react';
-import { getBookings, cancelBooking } from '../services/booking.service';
+import { cancelBooking } from '../services/booking.service';
+import { getMyBookings } from '../services/user.service';
+import { useAuth } from '../context/AuthContext';
+
 
 export default function Bookings(){
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState(null);
+  const { user } = useAuth();
 
   function load(){
+    if (!user) return;
     setLoading(true);
-    getBookings()
+    getMyBookings(user._id)
       .then(data => setBookings(data || []))
       .catch(err => setMsg(err.message || 'Failed to load'))
       .finally(()=>setLoading(false));
   }
 
-  useEffect(()=>{ load(); }, []);
+  useEffect(()=>{ load(); }, [user]);
 
   function handleCancelBooking(id){
     cancelBooking(id)
@@ -23,7 +28,7 @@ export default function Bookings(){
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-linear-to-b from-blue-50 to-white">
       <div className="container mx-auto p-4">
         <h1 className="text-2xl font-bold mb-4 text-blue-700 drop-shadow">My Bookings</h1>
         {msg && <div className="alert alert-error bg-blue-100 text-blue-700">{msg}</div>}
