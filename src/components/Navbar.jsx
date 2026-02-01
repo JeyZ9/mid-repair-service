@@ -26,7 +26,9 @@ export default function Navbar() {
           <>
             <Link to="/" className="btn btn-ghost text-blue-700 hover:bg-blue-200">Services</Link>
             <Link to="/bookings" className="btn btn-ghost text-blue-700 hover:bg-blue-200">Bookings</Link>
-            <Link to="/dashboard" className="btn btn-ghost text-blue-700 hover:bg-blue-200">Dashboard</Link>
+            {(user.role === 'admin' || user.role === 'technician') && (
+              <Link to="/dashboard" className="btn btn-ghost text-blue-700 hover:bg-blue-200">Dashboard</Link>
+            )}
             <div className="flex items-center gap-2">
               <span className="hidden sm:inline text-blue-700">{user.name}</span>
               <span className="badge badge-outline border-blue-400 text-blue-700 bg-white">{user.role}</span>
