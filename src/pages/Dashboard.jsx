@@ -10,5 +10,5 @@ export default function Dashboard(){
 
   if(user.role === 'admin') return <AdminDashboard user={user} />;
   if(user.role === 'technician') return <TechnicianDashboard user={user} />;
-  return <UserDashboard user={user} />;
+  // return <UserDashboard user={user} />;
 }

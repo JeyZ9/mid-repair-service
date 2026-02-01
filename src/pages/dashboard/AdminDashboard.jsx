@@ -165,7 +165,6 @@ export default function AdminDashboard(){
           <button className="rounded px-4 py-2 bg-blue-100 hover:bg-blue-200 text-blue-700 font-semibold border border-blue-200 shadow transition" onClick={()=>setShowRole(true)}>Change User Role</button>
         </div>
         {msg && <div className="alert alert-error mb-4 bg-blue-100 text-blue-700 border-blue-300">{msg}</div>}
-        {/* Services Section */}
         <div className="bg-white rounded-xl shadow p-4 border border-blue-100 mb-8">
           <h2 className="text-xl font-semibold mb-4 text-blue-600">Services</h2>
           {loading ? <div className="text-blue-400">Loading...</div> : (
@@ -187,7 +186,6 @@ export default function AdminDashboard(){
           )}
         </div>
 
-        {/* Bookings Section */}
         <div className="bg-white rounded-xl shadow p-4 border border-blue-100 mb-8">
           <h2 className="text-xl font-semibold mb-4 text-blue-600">Bookings (Assign Technician)</h2>
           <div className="divide-y divide-blue-100">
@@ -207,7 +205,6 @@ export default function AdminDashboard(){
             ))}
           </div>
         </div>
-        {/* Assign Technician Modal */}
         <Modal open={showAssign} onClose={()=>{setShowAssign(false); setAssignBookingId(null); setSelectedTechnician('');}}>
           <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md border border-blue-100 mx-auto">
             <h2 className="text-2xl font-bold mb-6 text-blue-700 text-center">Assign Technician</h2>
@@ -222,7 +219,6 @@ export default function AdminDashboard(){
             </form>
           </div>
         </Modal>
-        {/* Add Service Modal */}
         <Modal open={showAdd} onClose={()=>setShowAdd(false)}>
           <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md border border-blue-100 mx-auto">
             <h2 className="text-3xl font-bold mb-6 text-blue-700 text-center">Add Service</h2>
@@ -235,7 +231,6 @@ export default function AdminDashboard(){
             </form>
           </div>
         </Modal>
-        {/* Edit Service Modal */}
         <Modal open={!!editId} onClose={()=>setEditId(null)}>
           <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md border border-blue-100 mx-auto">
             <h2 className="text-3xl font-bold mb-6 text-blue-700 text-center">Edit Service</h2>
@@ -243,13 +238,11 @@ export default function AdminDashboard(){
               <input className="input input-bordered border-blue-200 focus:border-blue-400 placeholder-blue-300 text-blue-800 bg-white w-full h-12 rounded-lg" placeholder="Name" value={editService.name} onChange={e=>setEditService(s=>({...s, name: e.target.value}))} required />
               <input className="input input-bordered border-blue-200 focus:border-blue-400 placeholder-blue-300 text-blue-800 bg-white w-full h-12 rounded-lg" placeholder="Price" type="number" value={editService.price} onChange={e=>setEditService(s=>({...s, price: e.target.value}))} required min="0" step="0.01" />
               <textarea className="input input-bordered border-blue-200 focus:border-blue-400 placeholder-blue-300 text-blue-800 bg-white w-full rounded-lg min-h-20" placeholder="Description" value={editService.description} onChange={e=>setEditService(s=>({...s, description: e.target.value}))} />
-              {/* รูปภาพเป็น optional ในการแก้ไข */}
               <input className="input input-bordered border-blue-200 focus:border-blue-400 text-blue-800 bg-white w-full rounded-lg" type="file" accept="image/*" onChange={e=>setEditServiceImage && setEditServiceImage(e.target.files[0])} />
               <button className="btn btn-primary bg-blue-500 hover:bg-blue-600 text-white text-lg h-12 rounded-lg mt-2 shadow-none" type="submit">Save</button>
             </form>
           </div>
         </Modal>
-        {/* Change Role Modal */}
         <Modal open={showRole} onClose={()=>setShowRole(false)}>
           <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md border border-blue-100 mx-auto">
             <h2 className="text-3xl font-bold mb-6 text-blue-700 text-center">Change User Role</h2>
